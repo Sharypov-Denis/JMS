@@ -1,28 +1,48 @@
 package com;
 
-import com.Model.Person;
+import com.Consumer.ConsumerXMLTaxi;
+import com.Producer.ProducerXMLTaxi;
 
 import javax.jms.JMSException;
-import javax.naming.NamingException;
 
 
 public class Main {
 
     public static void main(String[] args) throws JMSException {
 
-        //Producer
+        Thread myThready = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    new ProducerXMLTaxi();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        myThready.start();
+
+        Thread myThready2 = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    new ConsumerXMLTaxi();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        myThready2.start();
+/*
         try {
-            new Producer();
+            new ProducerJson();
+            new ProducerXML();
+            new ProducerXMLTaxi();
+            new ConsumerXMLTaxi();
         } catch (NamingException e) {
             e.printStackTrace();
-        }
-        //Consumer
-        try {
-            new Consumer();
-        } catch (NamingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        Person person = new Person(1, "nnn", 1);
-        AllConverters.convertObjectToXml(person, "person.xml");
+
+ */
     }
 }

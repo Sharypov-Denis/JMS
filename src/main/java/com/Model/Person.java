@@ -56,7 +56,6 @@ public class Person implements Serializable {
 		this.id = id;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Person{" +
