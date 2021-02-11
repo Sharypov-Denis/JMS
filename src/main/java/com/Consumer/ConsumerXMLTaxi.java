@@ -1,11 +1,13 @@
 package com.Consumer;
 
 import com.AllConverters;
+import com.XSLTConvert.XSLTConvertAll;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.w3c.dom.Document;
 
 import javax.jms.*;
 import javax.naming.NamingException;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,9 +31,9 @@ public class ConsumerXMLTaxi {
             consumer.setMessageListener(new MessageListener() {
                 public void onMessage(Message message) {
                     TextMessage textMessage = (TextMessage) message;
-                    String localTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d-M-uuuu-HH-mm-ss"));
+                    String nameNewXml = LocalDateTime.now().format(DateTimeFormatter.ofPattern("d-M-uuuu-HH-mm-ss"));
                     String orderfinishXml= "order.xml";
-                    String finish = localTime+orderfinishXml;
+                    File newFile = new File("D:\\ProjectJava\\TaxiStation\\order-" + nameNewXml + ".xml");
                     //System.out.println("test datd:" + finish);
                     try {
                         TimeUnit.SECONDS.sleep(1);
@@ -44,7 +46,8 @@ public class ConsumerXMLTaxi {
                         AllConverters.addElementValue(document);
                         AllConverters.updateElementValueDispatched(document,random_number1);
                         documentList.add(document);
-                        AllConverters.writeDocument(document,localTime);
+                        AllConverters.writeDocument(document,newFile);
+                        XSLTConvertAll.XSLTConvert(newFile);
                         //System.out.println(documentList.size());
                         System.out.println("Received message Final: " + AllConverters.documentToString(document));
 

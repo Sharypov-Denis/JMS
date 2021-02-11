@@ -49,14 +49,14 @@ public class AllConverters {
     }
 
     // сохраняем DOM в xml файл
-    public static void writeDocument(Document document, String nameFilexML) throws TransformerFactoryConfigurationError, IOException {
-        File newFile = new File("D:\\ProjectJava\\TaxiStation\\order-" + nameFilexML + ".xml");
-       // newFile.createNewFile();
+    public static void writeDocument(Document document, File nameFilexML) throws TransformerFactoryConfigurationError, IOException {
+       //File newFile = new File("D:\\ProjectJava\\TaxiStation\\order-" + nameFilexML + ".xml");
+       //newFile.createNewFile();
         try {
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             DOMSource domSource = new DOMSource(document);
             //FileOutputStream fileOutputStream = new FileOutputStream("orderfinish.xml");
-            FileOutputStream fileOutputStream = new FileOutputStream(newFile);
+            FileOutputStream fileOutputStream = new FileOutputStream(nameFilexML);
             StreamResult streamResult = new StreamResult(fileOutputStream);
             transformer.transform(domSource, streamResult);
         } catch (Exception e) {

@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws JMSException {
 
-        Thread myThready = new Thread(new Runnable() {
+     Thread myThready = new Thread(new Runnable() {
             public void run() {
                 try {
                     new ProducerXMLTaxi();
@@ -28,9 +28,11 @@ public class Main {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
             }
         });
         myThready2.start();
+
 /*
         try {
             new ProducerJson();
@@ -42,7 +44,8 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
  */
+        //Person person = new Person(1,"qwerty", 100);
+        //AllConverters.convertObjectToXml(person, "D:\\ProjectJava\\TaxiStation\\person.xml");
     }
 }
