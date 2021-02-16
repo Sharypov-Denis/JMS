@@ -121,12 +121,17 @@ public class AllConverters {
     }
 
     // сохраняем объект в XML файл
-    public static void convertObjectToXml(Person person, String filePath) {
+    public static void convertObjectToXml(Object o, String filePath) {
         try {
-            JAXBContext context = JAXBContext.newInstance(Person.class);
+            JAXBContext context = JAXBContext.newInstance(o.getClass());//можно указать один класс или несколько или метод getClass передаваемого класса.
             Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            marshaller.marshal(person, new File(filePath));
+
+           // marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            //marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
+
+            marshaller.marshal(o, new File(filePath));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
